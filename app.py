@@ -19,6 +19,14 @@ def contains_bad_word(sentence: str) -> bool:
     return False
 
 
+@client.command(name="source", help="Get the source code for the bot")
+async def source_command(ctx: Context):
+    await ctx.channel.send("""The source code for this bot is avaliable on **Github!**
+    
+    Feel free to take a look at: https://github.com/arnu515/9dbot
+    """)
+
+
 @client.event
 async def on_ready():
     print("Connected to Discord as: " + client.user.name)
@@ -30,6 +38,8 @@ async def on_message(message: discord.Message):
         return
 
     if contains_bad_word(message.content):
+        print("Deleting message by " +
+              message.author.name + ": " + message.content)
         await message.delete()
 
 if __name__ == "__main__":
